@@ -56,6 +56,12 @@ const US_CALLSIGN_PREFIXES_WEIGHTED = [
   { value: 'AL', weight: 1 }, // 1%
 ];
 
+const CA_CALLSIGN_PREFIXES = [
+  'VE',
+  'VA',
+  'VO',
+  'VY',
+];
 const NON_US_CALLSIGN_PREFIXES = [
   '9A',
   'CT',
@@ -91,7 +97,10 @@ const NON_US_CALLSIGN_PREFIXES = [
   'SV',
   'UA',
   'UR',
+  'VA',
   'VE',
+  'VO',
+  'VY',
   'VK',
   'YO',
   'YT',
@@ -148,7 +157,7 @@ const stateAbbreviations = [
   'WI',
   'WY',
 ];
-const arrlSections = [
+const arrlSectionsUS = [
   'CO',
   'IA',
   'KS',
@@ -220,6 +229,8 @@ const arrlSections = [
   'IL',
   'IN',
   'WI',
+];
+const arrlSectionsCA = [
   'AB',
   'BC',
   'GH',
@@ -235,7 +246,16 @@ const arrlSections = [
   'SK',
   'TER',
 ];
-const fieldDayClasses = ['A', 'B', 'C', 'D', 'E', 'F'];
+const fieldDayClassesWeighted = [
+  { value: 'A', weight: 50 },
+  { value: 'AB', weight: 5 },
+  { value: 'B', weight: 5 },
+  { value: 'BB', weight: 5 },
+  { value: 'C', weight: 5 },
+  { value: 'D', weight: 10 },
+  { value: 'E', weight: 10 },
+  { value: 'F', weight: 5 },
+];
 const names = [
   'Adam',
   'Ahmed',
@@ -373,7 +393,7 @@ export function getYourStation() {
  *
  * @returns {Object|null} The calling station configuration or null if inputs are unavailable.
  */
-export function getCallingStation() {
+export function getCallingStation(currentMode) {
   let inputs = getInputs();
   if (inputs === null) return;
 
@@ -383,7 +403,9 @@ export function getCallingStation() {
   return {
     callsign: isUS
       ? getRandomUSCallsign(inputs.formats)
-      : getRandomNonUSCallsign(inputs.formats),
+      : currentMode === 'fd'
+        ? getRandomCACallsign(inputs.formats)
+        : getRandomNonUSCallsign(inputs.formats),
     wpm:
       Math.floor(Math.random() * (inputs.maxSpeed - inputs.minSpeed + 1)) +
       inputs.minSpeed,
@@ -396,10 +418,12 @@ export function getCallingStation() {
     ),
     name: randomElement(names),
     state: isUS ? randomElement(stateAbbreviations) : '',
-    section: randomElement(arrlSections), // would be nice to pick from a map of state to random section in that state but would miss canada and we use only one or the other anyway
+    section: isUS
+      ? randomElement(arrlSectionsUS)
+      : randomElement(arrlSectionsCA),
     klass:
-      (Math.floor(Math.random() * 20) + 1).toString() +
-      randomElement(fieldDayClasses),
+      (Math.floor(Math.pow(Math.random(), 2) * 20) + 1).toString() +
+      weightedRandomElement(fieldDayClassesWeighted),
     serialNumber: (Math.floor(Math.random() * 30) + 1)
       .toString()
       .padStart(2, '0'),
@@ -459,6 +483,30 @@ function getRandomUSCallsign(formats) {
   }
 }
 
+/**
+ * Generates a random CA amateur radio callsign.
+ *
+ * Combines a random Candian prefix with a digit and a sequence of letters
+ * according to the specified format. Ensures compatibility between prefix length
+ * and format requirements. Retries until a valid combination is found for prefixes
+ * and formats. Leverages predefined Canadian prefixes.
+ *
+ * @param {string[]} formats - An array of valid callsign formats.
+ * @returns {string} A randomly generated CA callsign.
+ */
+function getRandomCACallsign(formats) {
+  let prefix, format;
+  do {
+    prefix = randomElement(CA_CALLSIGN_PREFIXES);
+    format = randomElement(formats);
+  } while (format.startsWith('1x') &amp;&amp; prefix.length !== 1);
+
+  const number = randomDigit();
+  const lettersBeforeNumber = format.startsWith('2x') ? 2 - prefix.length : 0;
+  const lettersAfterNumber = parseInt(format.slice(-1));
+
+  return `${prefix}${generateRandomLetters(lettersBeforeNumber)}${number}${generateRandomLetters(lettersAfterNumber)}`;
+}
 /**
  * Generates a random non-US amateur radio callsign.
  *
@@ -600,13 +648,13 @@ function randomDigit() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addStations">addStations</a></li><li><a href="global.html#addTableRow">addTableRow</a></li><li><a href="global.html#applyModeSettings">applyModeSettings</a></li><li><a href="global.html#changeMode">changeMode</a></li><li><a href="global.html#clearAllInvalidStates">clearAllInvalidStates</a></li><li><a href="global.html#clearFieldInvalid">clearFieldInvalid</a></li><li><a href="global.html#clearTable">clearTable</a></li><li><a href="global.html#compareExtraInfo">compareExtraInfo</a></li><li><a href="global.html#compareStrings">compareStrings</a></li><li><a href="global.html#cq">cq</a></li><li><a href="global.html#createBackgroundStatic">createBackgroundStatic</a></li><li><a href="global.html#createMorsePlayer">createMorsePlayer</a></li><li><a href="global.html#currentMode">currentMode</a></li><li><a href="global.html#generateRandomLetters">generateRandomLetters</a></li><li><a href="global.html#getAudioLock">getAudioLock</a></li><li><a href="global.html#getCallingStation">getCallingStation</a></li><li><a href="global.html#getDOMInputs">getDOMInputs</a></li><li><a href="global.html#getInputs">getInputs</a></li><li><a href="global.html#getModeConfig">getModeConfig</a></li><li><a href="global.html#getRandomNonUSCallsign">getRandomNonUSCallsign</a></li><li><a href="global.html#getRandomUSCallsign">getRandomUSCallsign</a></li><li><a href="global.html#getSelectedCutNumbers">getSelectedCutNumbers</a></li><li><a href="global.html#getSelectedFormats">getSelectedFormats</a></li><li><a href="global.html#getYourStation">getYourStation</a></li><li><a href="global.html#isBackgroundStaticPlaying">isBackgroundStaticPlaying</a></li><li><a href="global.html#markFieldInvalid">markFieldInvalid</a></li><li><a href="global.html#modeLogicConfig">modeLogicConfig</a></li><li><a href="global.html#modeUIConfig">modeUIConfig</a></li><li><a href="global.html#nextSingleStation">nextSingleStation</a></li><li><a href="global.html#normalizeStationGain">normalizeStationGain</a></li><li><a href="global.html#openAccordionSection">openAccordionSection</a></li><li><a href="global.html#printStation">printStation</a></li><li><a href="global.html#randomDigit">randomDigit</a></li><li><a href="global.html#randomElement">randomElement</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#resetGameState">resetGameState</a></li><li><a href="global.html#respondWithAllStations">respondWithAllStations</a></li><li><a href="global.html#send">send</a></li><li><a href="global.html#stop">stop</a></li><li><a href="global.html#stopAllAudio">stopAllAudio</a></li><li><a href="global.html#stopBackgroundStatic">stopBackgroundStatic</a></li><li><a href="global.html#tu">tu</a></li><li><a href="global.html#updateActiveStations">updateActiveStations</a></li><li><a href="global.html#updateAudioLock">updateAudioLock</a></li><li><a href="global.html#updateStaticIntensity">updateStaticIntensity</a></li><li><a href="global.html#updateSummaryRow">updateSummaryRow</a></li><li><a href="global.html#validateInputs">validateInputs</a></li><li><a href="global.html#weightedRandom">weightedRandom</a></li><li><a href="global.html#weightedRandomElement">weightedRandomElement</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addStations">addStations</a></li><li><a href="global.html#addTableRow">addTableRow</a></li><li><a href="global.html#applyModeSettings">applyModeSettings</a></li><li><a href="global.html#changeMode">changeMode</a></li><li><a href="global.html#clearAllInvalidStates">clearAllInvalidStates</a></li><li><a href="global.html#clearFieldInvalid">clearFieldInvalid</a></li><li><a href="global.html#clearTable">clearTable</a></li><li><a href="global.html#compareExtraInfo">compareExtraInfo</a></li><li><a href="global.html#compareStrings">compareStrings</a></li><li><a href="global.html#cq">cq</a></li><li><a href="global.html#createBackgroundStatic">createBackgroundStatic</a></li><li><a href="global.html#createMorsePlayer">createMorsePlayer</a></li><li><a href="global.html#currentMode">currentMode</a></li><li><a href="global.html#generateRandomLetters">generateRandomLetters</a></li><li><a href="global.html#getAudioLock">getAudioLock</a></li><li><a href="global.html#getCallingStation">getCallingStation</a></li><li><a href="global.html#getCurrentMode">getCurrentMode</a></li><li><a href="global.html#getDOMInputs">getDOMInputs</a></li><li><a href="global.html#getInputs">getInputs</a></li><li><a href="global.html#getModeConfig">getModeConfig</a></li><li><a href="global.html#getRandomCACallsign">getRandomCACallsign</a></li><li><a href="global.html#getRandomNonUSCallsign">getRandomNonUSCallsign</a></li><li><a href="global.html#getRandomUSCallsign">getRandomUSCallsign</a></li><li><a href="global.html#getSelectedCutNumbers">getSelectedCutNumbers</a></li><li><a href="global.html#getSelectedFormats">getSelectedFormats</a></li><li><a href="global.html#getYourStation">getYourStation</a></li><li><a href="global.html#isBackgroundStaticPlaying">isBackgroundStaticPlaying</a></li><li><a href="global.html#markFieldInvalid">markFieldInvalid</a></li><li><a href="global.html#modeLogicConfig">modeLogicConfig</a></li><li><a href="global.html#modeUIConfig">modeUIConfig</a></li><li><a href="global.html#nextSingleStation">nextSingleStation</a></li><li><a href="global.html#normalizeStationGain">normalizeStationGain</a></li><li><a href="global.html#openAccordionSection">openAccordionSection</a></li><li><a href="global.html#printStation">printStation</a></li><li><a href="global.html#randomDigit">randomDigit</a></li><li><a href="global.html#randomElement">randomElement</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#resetGameState">resetGameState</a></li><li><a href="global.html#respondWithAllStations">respondWithAllStations</a></li><li><a href="global.html#send">send</a></li><li><a href="global.html#stop">stop</a></li><li><a href="global.html#stopAllAudio">stopAllAudio</a></li><li><a href="global.html#stopBackgroundStatic">stopBackgroundStatic</a></li><li><a href="global.html#tu">tu</a></li><li><a href="global.html#updateActiveStations">updateActiveStations</a></li><li><a href="global.html#updateAudioLock">updateAudioLock</a></li><li><a href="global.html#updateStaticIntensity">updateStaticIntensity</a></li><li><a href="global.html#updateSummaryRow">updateSummaryRow</a></li><li><a href="global.html#validateInputs">validateInputs</a></li><li><a href="global.html#weightedRandom">weightedRandom</a></li><li><a href="global.html#weightedRandomElement">weightedRandomElement</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Jun 06 2025 10:54:24 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Jun 06 2025 23:41:12 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
