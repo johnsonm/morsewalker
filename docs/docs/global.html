@@ -316,7 +316,7 @@ Additionally, it specifies what the extra column header should be.</p>
     
 
     
-    <h4 class="name" id="addStations"><span class="type-signature"></span>addStations<span class="signature">(stations, inputs)</span><span class="type-signature"> &rarr; {Array.&lt;Object>}</span></h4>
+    <h4 class="name" id="addStations"><span class="type-signature"></span>addStations<span class="signature">(stations, inputs, chance)</span><span class="type-signature"> &rarr; {Array.&lt;Object>}</span></h4>
     
 
     
@@ -402,7 +402,30 @@ and returns the updated array.</p>
 
             
 
-            <td class="description last"><p>Configuration object containing <code>maxStations</code>.</p></td>
+            <td class="description last"><p>Configuration object containing <code>minStations</code> and <code>maxStations</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>(0.0-1.0] chance of adding a new station joining if &gt; minStations</p></td>
         </tr>
 
     
@@ -443,7 +466,7 @@ and returns the updated array.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="util.js.html">util.js</a>, <a href="util.js.html#line460">line 460</a>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line462">line 462</a>
     </li></ul></dd>
     
 
@@ -835,7 +858,7 @@ and returns the updated array.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="util.js.html">util.js</a>, <a href="util.js.html#line504">line 504</a>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line509">line 509</a>
     </li></ul></dd>
     
 
@@ -1155,7 +1178,7 @@ the visual state of the form.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="inputs.js.html">inputs.js</a>, <a href="inputs.js.html#line214">line 214</a>
+        <a href="inputs.js.html">inputs.js</a>, <a href="inputs.js.html#line215">line 215</a>
     </li></ul></dd>
     
 
@@ -1293,7 +1316,7 @@ the visual state of the form.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="inputs.js.html">inputs.js</a>, <a href="inputs.js.html#line201">line 201</a>
+        <a href="inputs.js.html">inputs.js</a>, <a href="inputs.js.html#line202">line 202</a>
     </li></ul></dd>
     
 
@@ -1430,7 +1453,7 @@ the visual state of the form.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="util.js.html">util.js</a>, <a href="util.js.html#line541">line 541</a>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line546">line 546</a>
     </li></ul></dd>
     
 
@@ -1616,7 +1639,7 @@ the expected value.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line868">line 868</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line865">line 865</a>
     </li></ul></dd>
     
 
@@ -3620,7 +3643,7 @@ checked &quot;T/0&quot; in the UI, then the returned object might include { '0':
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="inputs.js.html">inputs.js</a>, <a href="inputs.js.html#line281">line 281</a>
+        <a href="inputs.js.html">inputs.js</a>, <a href="inputs.js.html#line282">line 282</a>
     </li></ul></dd>
     
 
@@ -3746,7 +3769,7 @@ for callsign generation.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="inputs.js.html">inputs.js</a>, <a href="inputs.js.html#line250">line 250</a>
+        <a href="inputs.js.html">inputs.js</a>, <a href="inputs.js.html#line251">line 251</a>
     </li></ul></dd>
     
 
@@ -4157,7 +4180,7 @@ within a <code>.invalid-feedback</code> element if present.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="inputs.js.html">inputs.js</a>, <a href="inputs.js.html#line181">line 181</a>
+        <a href="inputs.js.html">inputs.js</a>, <a href="inputs.js.html#line182">line 182</a>
     </li></ul></dd>
     
 
@@ -4296,7 +4319,7 @@ the station's callsign. Updates the game state and refocuses on the response fie
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line923">line 923</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line920">line 920</a>
     </li></ul></dd>
     
 
@@ -4443,7 +4466,7 @@ property (number) and may include other properties such as <code>callsign</code>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="util.js.html">util.js</a>, <a href="util.js.html#line390">line 390</a>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line391">line 391</a>
     </li></ul></dd>
     
 
@@ -4618,7 +4641,7 @@ state and toggling it if necessary. Leverages Bootstrap's <code>Collapse</code> 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="inputs.js.html">inputs.js</a>, <a href="inputs.js.html#line229">line 229</a>
+        <a href="inputs.js.html">inputs.js</a>, <a href="inputs.js.html#line230">line 230</a>
     </li></ul></dd>
     
 
@@ -4937,7 +4960,7 @@ state and toggling it if necessary. Leverages Bootstrap's <code>Collapse</code> 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="util.js.html">util.js</a>, <a href="util.js.html#line483">line 483</a>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line488">line 488</a>
     </li></ul></dd>
     
 
@@ -5298,7 +5321,7 @@ and focuses on the response field. Adjusts the CQ button based on mode logic.</p
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line974">line 974</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line971">line 971</a>
     </li></ul></dd>
     
 
@@ -5550,7 +5573,7 @@ to play their callsign. The <code>audioLock</code> parameter controls the start 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="util.js.html">util.js</a>, <a href="util.js.html#line426">line 426</a>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line427">line 427</a>
     </li></ul></dd>
     
 
@@ -5731,7 +5754,7 @@ Leaves multi-station mode state untouched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line954">line 954</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line951">line 951</a>
     </li></ul></dd>
     
 
@@ -6188,7 +6211,7 @@ Plays the user's and station's sign-off messages.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="util.js.html">util.js</a>, <a href="util.js.html#line653">line 653</a>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line658">line 658</a>
     </li></ul></dd>
     
 
@@ -6614,7 +6637,7 @@ no summary row is shown.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="util.js.html">util.js</a>, <a href="util.js.html#line560">line 560</a>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line565">line 565</a>
     </li></ul></dd>
     
 
@@ -6754,7 +6777,7 @@ of the form for easier user correction.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="inputs.js.html">inputs.js</a>, <a href="inputs.js.html#line103">line 103</a>
+        <a href="inputs.js.html">inputs.js</a>, <a href="inputs.js.html#line104">line 104</a>
     </li></ul></dd>
     
 
@@ -6812,7 +6835,7 @@ of the form for easier user correction.</p>
     
 
     
-    <h4 class="name" id="weightedRandom"><span class="type-signature"></span>weightedRandom<span class="signature">(maxStations)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    <h4 class="name" id="weightedRandom"><span class="type-signature"></span>weightedRandom<span class="signature">(minStations, maxStations)</span><span class="type-signature"> &rarr; {number}</span></h4>
     
 
     
@@ -6857,6 +6880,29 @@ Lower-numbered stations have higher probabilities.</p>
 
         <tr>
             
+                <td class="name"><code>minStations</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The minimum number of additional stations.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>maxStations</code></td>
             
 
@@ -6873,7 +6919,7 @@ Lower-numbered stations have higher probabilities.</p>
 
             
 
-            <td class="description last"><p>The total number of stations.</p></td>
+            <td class="description last"><p>The maximum number of additional stations.</p></td>
         </tr>
 
     
@@ -6914,7 +6960,7 @@ Lower-numbered stations have higher probabilities.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="util.js.html">util.js</a>, <a href="util.js.html#line311">line 311</a>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line312">line 312</a>
     </li></ul></dd>
     
 
@@ -6944,7 +6990,7 @@ Lower-numbered stations have higher probabilities.</p>
         
 <div class="param-desc">
     <ul>
-<li>A station number (1 to maxStations) based on weighted probability.</li>
+<li>A station count (1 to maxStations) based on weighted probability.</li>
 </ul>
 </div>
 
@@ -7164,7 +7210,7 @@ console.log(pickedFruit); // Logs 'apple', 'banana', or 'mango' based on weights
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Dec 02 2025 22:50:57 GMT-0500 (Eastern Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue May 19 2026 22:59:11 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
